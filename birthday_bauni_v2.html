@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>Happy Birthday Bauni 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --w:#ffffff; --s1:#f0f0f0; --s2:#d4d4d4; --s3:#b0b0b0;
+  --s4:#888; --s5:#555; --s6:#333; --s7:#1e1e1e; --s8:#141414; --s9:#0a0a0a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--s9);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px;
+}
+
+/* ─── CANVAS LAYERS ─── */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:2;}
+#sparkle-canvas{position:fixed;inset:0;pointer-events:none;z-index:3;}
+
+/* ─── BALLOONS ─── */
+.balloons{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.balloon{
+  position:absolute;bottom:-140px;
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  animation:riseUp linear infinite;
+}
+.balloon::before{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:8px;height:8px;background:inherit;border-radius:50%;}
+.balloon::after{content:'';position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);width:1.5px;height:36px;background:var(--s5);}
+@keyframes riseUp{
+  0%{transform:translateY(0) rotate(-6deg);opacity:0;}
+  5%{opacity:.85;}48%{transform:translateY(-50vh) rotate(6deg);}
+  95%{opacity:.3;}100%{transform:translateY(-115vh) rotate(-6deg);opacity:0;}
+}
+.b1{width:52px;height:63px;background:#c8c8c8;left:4%;animation-duration:11s;animation-delay:0s;}
+.b2{width:44px;height:54px;background:#3a3a3a;left:13%;animation-duration:14s;animation-delay:2s;}
+.b3{width:56px;height:68px;background:#e8e8e8;left:22%;animation-duration:9s;animation-delay:4.5s;}
+.b4{width:40px;height:50px;background:#222;left:33%;animation-duration:15s;animation-delay:1s;}
+.b5{width:50px;height:61px;background:#999;left:44%;animation-duration:12s;animation-delay:3s;}
+.b6{width:58px;height:70px;background:#ddd;left:55%;animation-duration:10s;animation-delay:6s;}
+.b7{width:42px;height:52px;background:#444;left:64%;animation-duration:13s;animation-delay:1.8s;}
+.b8{width:54px;height:65px;background:#bbb;left:73%;animation-duration:11s;animation-delay:5s;}
+.b9{width:46px;height:56px;background:#2a2a2a;left:83%;animation-duration:14s;animation-delay:2.5s;}
+.b10{width:48px;height:58px;background:#aaa;left:91%;animation-duration:10s;animation-delay:7s;}
+.b11{width:44px;height:54px;background:#555;left:8%;animation-duration:13s;animation-delay:8s;}
+.b12{width:52px;height:63px;background:#e0e0e0;left:50%;animation-duration:9s;animation-delay:9s;}
+
+/* ─── STREAMERS ─── */
+.streamers{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+.streamer{
+  position:absolute;top:-20px;
+  width:3px;height:60px;
+  border-radius:2px;
+  animation:streamFall linear infinite;
+  opacity:0;
+}
+@keyframes streamFall{
+  0%{transform:translateY(-60px) rotate(20deg);opacity:0;}
+  10%{opacity:.7;}
+  100%{transform:translateY(110vh) rotate(-20deg);opacity:0;}
+}
+.st1{background:var(--s2);left:7%;animation-duration:6s;animation-delay:0s;}
+.st2{background:var(--s5);left:17%;animation-duration:8s;animation-delay:1s;}
+.st3{background:var(--w);left:27%;animation-duration:7s;animation-delay:3s;}
+.st4{background:var(--s3);left:38%;animation-duration:9s;animation-delay:0.5s;}
+.st5{background:var(--s6);left:50%;animation-duration:6s;animation-delay:4s;}
+.st6{background:var(--s2);left:61%;animation-duration:8s;animation-delay:2s;}
+.st7{background:var(--w);left:72%;animation-duration:7s;animation-delay:5s;}
+.st8{background:var(--s4);left:83%;animation-duration:9s;animation-delay:1.5s;}
+.st9{background:var(--s3);left:93%;animation-duration:6s;animation-delay:6s;}
+
+/* ─── WRAPPER ─── */
+.wrap{
+  position:relative;z-index:10;
+  max-width:420px;margin:0 auto;
+  padding:50px 18px 70px;
+  display:flex;flex-direction:column;align-items:center;
+}
+
+/* ─── TOP PARTY POPPER BURST ─── */
+.top-burst{
+  width:100%;display:flex;justify-content:space-between;
+  align-items:flex-end;margin-bottom:0;padding:0 8px;
+}
+.pp-big{
+  font-size:52px;
+  filter:grayscale(1) brightness(1.8) contrast(1.1);
+  animation:ppWiggle .6s ease-in-out infinite alternate;
+  position:relative;
+}
+.pp-big.r{transform:scaleX(-1);animation-name:ppWiggleR;}
+.pp-big .burst-lines{
+  position:absolute;inset:0;
+  display:flex;justify-content:center;align-items:center;
+}
+.bl{
+  position:absolute;width:2px;background:var(--s3);
+  transform-origin:center bottom;border-radius:2px;
+  animation:blShoot .6s ease-out infinite;
+}
+@keyframes ppWiggle{0%{transform:rotate(-16deg) scale(1);}100%{transform:rotate(14deg) scale(1.1);}}
+@keyframes ppWiggleR{0%{transform:scaleX(-1) rotate(-16deg) scale(1);}100%{transform:scaleX(-1) rotate(14deg) scale(1.1);}}
+@keyframes blShoot{0%{height:0;opacity:1;}100%{height:22px;opacity:0;}}
+
+/* ─── SPARKLE CROWN ─── */
+.crown-wrap{
+  position:relative;width:170px;height:170px;
+  margin:24px 0 0;
+}
+.orbit{
+  position:absolute;inset:0;
+  animation:orbitSpin 14s linear infinite;
+}
+.orbit-dot{
+  position:absolute;top:50%;left:50%;
+  width:6px;height:6px;margin:-3px;
+  border-radius:50%;
+  box-shadow:0 0 8px 2px currentColor;
+}
+/* 2 orbit rings */
+.orbit-1{animation-duration:14s;}
+.orbit-1 .orbit-dot:nth-child(1){transform:rotate(0deg) translateX(80px);color:var(--w);}
+.orbit-1 .orbit-dot:nth-child(2){transform:rotate(45deg) translateX(80px);color:var(--s3);}
+.orbit-1 .orbit-dot:nth-child(3){transform:rotate(90deg) translateX(80px);color:var(--w);}
+.orbit-1 .orbit-dot:nth-child(4){transform:rotate(135deg) translateX(80px);color:var(--s4);}
+.orbit-1 .orbit-dot:nth-child(5){transform:rotate(180deg) translateX(80px);color:var(--w);}
+.orbit-1 .orbit-dot:nth-child(6){transform:rotate(225deg) translateX(80px);color:var(--s3);}
+.orbit-1 .orbit-dot:nth-child(7){transform:rotate(270deg) translateX(80px);color:var(--w);}
+.orbit-1 .orbit-dot:nth-child(8){transform:rotate(315deg) translateX(80px);color:var(--s4);}
+
+.orbit-2{animation-duration:9s;animation-direction:reverse;}
+.orbit-2 .orbit-dot:nth-child(1){transform:rotate(0deg) translateX(55px);color:var(--s2);width:4px;height:4px;margin:-2px;}
+.orbit-2 .orbit-dot:nth-child(2){transform:rotate(60deg) translateX(55px);color:var(--w);width:4px;height:4px;margin:-2px;}
+.orbit-2 .orbit-dot:nth-child(3){transform:rotate(120deg) translateX(55px);color:var(--s3);width:4px;height:4px;margin:-2px;}
+.orbit-2 .orbit-dot:nth-child(4){transform:rotate(180deg) translateX(55px);color:var(--w);width:4px;height:4px;margin:-2px;}
+.orbit-2 .orbit-dot:nth-child(5){transform:rotate(240deg) translateX(55px);color:var(--s2);width:4px;height:4px;margin:-2px;}
+.orbit-2 .orbit-dot:nth-child(6){transform:rotate(300deg) translateX(55px);color:var(--w);width:4px;height:4px;margin:-2px;}
+
+@keyframes orbitSpin{to{transform:rotate(360deg);}}
+
+.crown-emoji{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:68px;
+  animation:bigBob 1.8s ease-in-out infinite;
+}
+@keyframes bigBob{0%,100%{transform:scale(1) translateY(0);}50%{transform:scale(1.08) translateY(-6px);}}
+
+/* ─── HEADING ─── */
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:700;font-size:clamp(44px,13vw,68px);
+  text-align:center;line-height:1;
+  margin:28px 0 2px;
+  background:linear-gradient(165deg,#fff 0%,#d8d8d8 30%,#888 60%,#fff 85%,#c0c0c0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:300% 300%;
+  animation:silverFlow 5s ease infinite;
+  filter:drop-shadow(0 0 24px rgba(200,200,200,.25));
+}
+@keyframes silverFlow{
+  0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}
+}
+
+.script-name{
+  font-family:'Pinyon Script',cursive;
+  font-size:clamp(34px,11vw,52px);
+  color:var(--s1);
+  text-align:center;
+  margin-bottom:4px;
+  text-shadow:0 0 28px rgba(255,255,255,.2);
+  animation:fadeSlide .8s ease both;animation-delay:.3s;
+}
+.tagline{
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;font-size:11px;
+  letter-spacing:.45em;text-transform:uppercase;
+  color:var(--s5);margin-bottom:30px;
+  animation:fadeSlide .8s ease both;animation-delay:.5s;
+}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── ORNAMENTAL DIVIDER ─── */
+.ornament{
+  display:flex;align-items:center;gap:10px;
+  width:90%;max-width:340px;margin:0 auto 32px;
+}
+.ornament::before,.ornament::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(to right,transparent,var(--s5),var(--s3));
+}
+.ornament::after{background:linear-gradient(to left,transparent,var(--s5),var(--s3));}
+.ornament-mid{color:var(--s3);font-size:16px;letter-spacing:6px;}
+
+/* ─── PHOTO FRAMES GRID ─── */
+.frames-title{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:13px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--s4);margin-bottom:18px;
+}
+
+.frames-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  width:100%;max-width:340px;
+  margin-bottom:32px;
+}
+
+.frame{
+  position:relative;
+  border-radius:4px;
+  overflow:visible;
+  animation:frameFadeIn .7s ease both;
+}
+.frame:nth-child(1){animation-delay:.2s;transform:rotate(-2.5deg);}
+.frame:nth-child(2){animation-delay:.35s;transform:rotate(2deg);}
+.frame:nth-child(3){animation-delay:.5s;transform:rotate(1.5deg);}
+.frame:nth-child(4){animation-delay:.65s;transform:rotate(-2deg);}
+@keyframes frameFadeIn{from{opacity:0;transform:scale(.9) rotate(var(--r,0deg)) translateY(20px);}to{opacity:1;}}
+.frame:hover{transform:rotate(0deg) scale(1.04)!important;z-index:20;transition:transform .3s ease;}
+
+.frame-inner{
+  border:2px solid var(--s5);
+  border-radius:4px;
+  background:var(--s8);
+  padding:8px 8px 28px;
+  box-shadow:
+    0 4px 20px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 0 0 1px rgba(255,255,255,.04);
+  position:relative;
+}
+
+/* Polaroid photo placeholder area */
+.frame-photo{
+  width:100%;
+  aspect-ratio:1/1;
+  background:var(--s7);
+  border-radius:2px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:6px;
+  position:relative;
+  overflow:hidden;
+}
+/* decorative pattern inside frame */
+.frame-photo::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 30%,rgba(255,255,255,.04) 0%,transparent 60%),
+    radial-gradient(circle at 70% 70%,rgba(255,255,255,.03) 0%,transparent 50%);
+}
+.frame-photo-icon{font-size:34px;filter:grayscale(1) brightness(1.4);opacity:.6;}
+.frame-photo-label{
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--s5);font-family:'DM Sans',sans-serif;
+}
+
+/* little decorative corner dots on frame */
+.frame-inner::before,.frame-inner::after{
+  content:'✦';position:absolute;
+  color:var(--s5);font-size:9px;
+}
+.frame-inner::before{top:4px;left:4px;}
+.frame-inner::after{top:4px;right:4px;}
+
+.frame-caption{
+  text-align:center;margin-top:6px;padding:0 4px;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:12px;
+  color:var(--s3);line-height:1.4;
+}
+
+/* tape strip effect on 2 frames */
+.frame:nth-child(1)::before,.frame:nth-child(3)::before{
+  content:'';position:absolute;
+  top:-10px;left:50%;transform:translateX(-50%);
+  width:40px;height:20px;
+  background:rgba(200,200,200,.12);
+  border:1px solid rgba(200,200,200,.15);
+  border-radius:2px;
+  z-index:5;
+}
+
+/* ─── GIFT CARD ─── */
+.gift-card{
+  width:100%;max-width:340px;
+  background:var(--s8);
+  border:1px solid var(--s6);border-radius:18px;
+  padding:28px 22px 24px;
+  text-align:center;
+  position:relative;overflow:hidden;
+  margin-bottom:22px;
+  box-shadow:0 0 50px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.06);
+  animation:fadeSlide .8s ease both;animation-delay:.7s;
+}
+.gift-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--s4),var(--s2),var(--s4),transparent);
+}
+.gift-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--s6),var(--s5),var(--s6),transparent);
+}
+
+.gift-num{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:88px;line-height:.9;
+  background:linear-gradient(160deg,#fff,#aaa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:numGlow 2.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px rgba(255,255,255,.15));
+}
+@keyframes numGlow{
+  0%,100%{filter:drop-shadow(0 0 10px rgba(255,255,255,.1));}
+  50%{filter:drop-shadow(0 0 30px rgba(255,255,255,.35));}
+}
+.gift-badge{
+  font-size:10px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--s4);margin:2px 0 16px;
+}
+.gift-icons-row{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-bottom:14px;
+}
+.gi{
+  font-size:24px;filter:grayscale(1) brightness(1.5);
+  animation:giftJump 2s ease-in-out infinite;
+}
+.gi:nth-child(2n){animation-delay:.3s;}
+.gi:nth-child(3n){animation-delay:.6s;}
+.gi:nth-child(4n){animation-delay:.9s;}
+@keyframes giftJump{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+.gift-msg{
+  font-family:'Cormorant Garamond',serif;
+  font-size:15px;color:var(--s2);line-height:1.7;
+}
+.gift-msg b{color:var(--w);font-weight:600;}
+
+/* ─── LOVE CARD ─── */
+.love-card{
+  width:100%;max-width:340px;
+  background:var(--s7);
+  border:1px solid var(--s6);border-radius:18px;
+  padding:26px 22px;text-align:center;
+  margin-bottom:26px;
+  animation:fadeSlide .8s ease both;animation-delay:.9s;
+}
+.love-heart{
+  font-size:44px;display:block;
+  filter:grayscale(1) brightness(2.2);
+  animation:heartPulse 1.3s ease-in-out infinite;
+  margin-bottom:12px;
+}
+@keyframes heartPulse{0%,100%{transform:scale(1);}14%{transform:scale(1.25);}28%{transform:scale(1);}42%{transform:scale(1.15);}70%{transform:scale(1);}}
+.love-text{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:18px;
+  color:var(--s1);line-height:1.75;
+}
+.love-text .hi{
+  font-style:normal;font-weight:700;
+  color:var(--w);text-shadow:0 0 14px rgba(255,255,255,.2);
+}
+
+/* ─── FLOATING PILLS ─── */
+.pills{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+  margin-bottom:26px;
+}
+.pill{
+  background:var(--s8);
+  border:1px solid var(--s6);border-radius:40px;
+  padding:10px 18px;
+  font-size:24px;filter:grayscale(1) brightness(1.5);
+  animation:pillFloat 2.4s ease-in-out infinite;
+  box-shadow:0 4px 18px rgba(0,0,0,.4);
+}
+.pill:nth-child(2){animation-delay:.4s;}
+.pill:nth-child(3){animation-delay:.8s;}
+.pill:nth-child(4){animation-delay:1.2s;}
+.pill:nth-child(5){animation-delay:1.6s;}
+.pill:nth-child(6){animation-delay:2s;}
+@keyframes pillFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+/* ─── STAR BAND ─── */
+.stars-row{
+  font-size:18px;letter-spacing:12px;color:var(--s4);
+  margin-bottom:26px;
+  animation:twinkle 2s ease-in-out infinite alternate;
+}
+@keyframes twinkle{0%{opacity:.25;text-shadow:none;}100%{opacity:1;text-shadow:0 0 12px var(--s3);}}
+
+/* ─── BURST BUTTON ─── */
+.btn{
+  padding:15px 38px;
+  background:transparent;
+  border:1.5px solid var(--s4);border-radius:50px;
+  color:var(--s1);
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:all .3s;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  opacity:0;transition:opacity .3s;
+}
+.btn:hover{border-color:var(--s1);color:var(--w);box-shadow:0 0 28px rgba(255,255,255,.1);}
+.btn:hover::before{opacity:1;}
+.btn span{position:relative;z-index:1;}
+
+/* ─── FOOTER ─── */
+footer{
+  position:relative;z-index:10;text-align:center;
+  padding:22px 16px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
+  color:var(--s5);letter-spacing:.1em;
+}
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+<canvas id="sparkle-canvas"></canvas>
+
+<!-- Balloons -->
+<div class="balloons">
+  <div class="balloon b1"></div><div class="balloon b2"></div>
+  <div class="balloon b3"></div><div class="balloon b4"></div>
+  <div class="balloon b5"></div><div class="balloon b6"></div>
+  <div class="balloon b7"></div><div class="balloon b8"></div>
+  <div class="balloon b9"></div><div class="balloon b10"></div>
+  <div class="balloon b11"></div><div class="balloon b12"></div>
+</div>
+
+<!-- Streamers -->
+<div class="streamers">
+  <div class="streamer st1"></div><div class="streamer st2"></div>
+  <div class="streamer st3"></div><div class="streamer st4"></div>
+  <div class="streamer st5"></div><div class="streamer st6"></div>
+  <div class="streamer st7"></div><div class="streamer st8"></div>
+  <div class="streamer st9"></div>
+</div>
+
+<div class="wrap">
+
+  <!-- TOP PARTY POPPERS -->
+  <div class="top-burst">
+    <div class="pp-big">🎉</div>
+    <div class="pp-big">🎊</div>
+    <div class="pp-big r">🎉</div>
+  </div>
+
+  <!-- ORBIT CROWN + CAKE -->
+  <div class="crown-wrap">
+    <div class="orbit orbit-1">
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+    </div>
+    <div class="orbit orbit-2">
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+      <div class="orbit-dot"></div><div class="orbit-dot"></div>
+    </div>
+    <div class="crown-emoji">🎂</div>
+  </div>
+
+  <h1>Happy<br>Birthday</h1>
+  <p class="script-name">Bauni 🤍</p>
+  <p class="tagline">today is your magic day</p>
+
+  <div class="ornament">
+    <span class="ornament-mid">✦ ✦ ✦</span>
+  </div>
+
+  <!-- PHOTO FRAMES -->
+  <p class="frames-title">✦ memories &amp; moments ✦</p>
+  <div class="frames-grid">
+
+    <div class="frame">
+      <div class="frame-inner">
+        <div class="frame-photo">
+          <span class="frame-photo-icon">📸</span>
+          <span class="frame-photo-label">add your photo</span>
+        </div>
+        <p class="frame-caption">our fav memory ✨</p>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="frame-inner">
+        <div class="frame-photo">
+          <span class="frame-photo-icon">🎀</span>
+          <span class="frame-photo-label">add your photo</span>
+        </div>
+        <p class="frame-caption">birthday queen 👑</p>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="frame-inner">
+        <div class="frame-photo">
+          <span class="frame-photo-icon">🌙</span>
+          <span class="frame-photo-label">add your photo</span>
+        </div>
+        <p class="frame-caption">always shining 🌟</p>
+      </div>
+    </div>
+
+    <div class="frame">
+      <div class="frame-inner">
+        <div class="frame-photo">
+          <span class="frame-photo-icon">🤍</span>
+          <span class="frame-photo-label">add your photo</span>
+        </div>
+        <p class="frame-caption">love you bauni 🎉</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ornament" style="margin-bottom:28px;">
+    <span class="ornament-mid">✦ ✦ ✦</span>
+  </div>
+
+  <!-- 14 GIFTS CARD -->
+  <div class="gift-card">
+    <div class="gift-num">14</div>
+    <p class="gift-badge">gifts arriving today!!</p>
+    <div class="gift-icons-row">
+      <span class="gi">🎁</span><span class="gi">🎁</span><span class="gi">🎁</span>
+      <span class="gi">🎁</span><span class="gi">🎁</span><span class="gi">🎁</span>
+      <span class="gi">🎁</span>
+    </div>
+    <p class="gift-msg">
+      <b>14 whole gifts</b> are making their way to you today —
+      yayyyy you deserve every single one!! 🥳🎊
+    </p>
+  </div>
+
+  <!-- LOVE CARD -->
+  <div class="love-card">
+    <span class="love-heart">🤍</span>
+    <p class="love-text">
+      Happy Birthday <span class="hi">Bauni</span> —<br>
+      love yaaa so so much,<br>
+      wishing you the most magical,<br>
+      most beautiful day ever ✨
+    </p>
+  </div>
+
+  <!-- FLOATING PILLS -->
+  <div class="pills">
+    <div class="pill">🎈</div>
+    <div class="pill">🥳</div>
+    <div class="pill">✨</div>
+    <div class="pill">🎊</div>
+    <div class="pill">🎉</div>
+    <div class="pill">🎁</div>
+  </div>
+
+  <div class="stars-row">★ ★ ★ ★ ★</div>
+
+  <!-- PARTY POPPERS BOTTOM -->
+  <div style="display:flex;gap:24px;margin-bottom:26px;">
+    <span style="font-size:40px;filter:grayscale(1) brightness(1.8);animation:ppWiggle .6s ease-in-out infinite alternate;">🎉</span>
+    <span style="font-size:40px;filter:grayscale(1) brightness(1.8);animation:ppWiggle .6s ease-in-out infinite alternate;animation-delay:.3s;">🎊</span>
+    <span style="font-size:40px;filter:grayscale(1) brightness(1.8);transform:scaleX(-1);animation:ppWiggleR .6s ease-in-out infinite alternate;animation-delay:.15s;">🎉</span>
+  </div>
+
+  <button class="btn" onclick="bigBurst()"><span>🎉 Confetti Burst!</span></button>
+
+</div><!-- /wrap -->
+
+<footer>✦ happy birthday bauni ✦ love yaa always ✦</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   CONFETTI ENGINE
+═══════════════════════════════════════ */
+const cc = document.getElementById('confetti-canvas');
+const cx = cc.getContext('2d');
+let W,H;
+const pts=[];
+const PAL=['#ffffff','#e8e8e8','#d0d0d0','#b0b0b0','#888888','#555555','#333333','#aaaaaa','#cccccc'];
+
+function resize(){W=cc.width=innerWidth;H=cc.height=innerHeight;}
+addEventListener('resize',resize);resize();
+
+class Confetti{
+  constructor(burst){
+    this.burst=burst;
+    this.reset(burst);
+  }
+  reset(b){
+    this.x=b?W/2:Math.random()*W;
+    this.y=b?H*0.35:-10;
+    this.vx=(Math.random()-.5)*(b?16:2);
+    this.vy=b?(Math.random()*-18-4):(Math.random()*2.5+.5);
+    this.sz=Math.random()*7+2;
+    this.col=PAL[Math.floor(Math.random()*PAL.length)];
+    this.rot=Math.random()*Math.PI*2;
+    this.rv=(Math.random()-.5)*.25;
+    this.life=1;
+    this.decay=b?Math.random()*.016+.007:.0035;
+    this.g=.28;
+    this.shape=['rect','circle','tri'][Math.floor(Math.random()*3)];
+    this.ambient=!b;
+  }
+  step(){
+    this.vy+=this.g;this.x+=this.vx;this.y+=this.vy;
+    this.rot+=this.rv;this.life-=this.decay;
+  }
+  draw(){
+    cx.save();cx.globalAlpha=Math.max(0,this.life);
+    cx.fillStyle=this.col;
+    cx.translate(this.x,this.y);cx.rotate(this.rot);
+    if(this.shape==='rect'){cx.fillRect(-this.sz/2,-this.sz/4,this.sz,this.sz/2);}
+    else if(this.shape==='circle'){cx.beginPath();cx.arc(0,0,this.sz/2,0,Math.PI*2);cx.fill();}
+    else{cx.beginPath();cx.moveTo(0,-this.sz/2);cx.lineTo(this.sz/2,this.sz/2);cx.lineTo(-this.sz/2,this.sz/2);cx.closePath();cx.fill();}
+    cx.restore();
+  }
+}
+
+for(let i=0;i<35;i++){const p=new Confetti(false);p.y=Math.random()*H;pts.push(p);}
+
+function loop(){
+  cx.clearRect(0,0,W,H);
+  for(let i=pts.length-1;i>=0;i--){
+    const p=pts[i];p.step();p.draw();
+    if(p.life<=0||p.y>H+30){
+      if(p.ambient)p.reset(false);
+      else pts.splice(i,1);
+    }
+  }
+  requestAnimationFrame(loop);
+}
+loop();
+
+function bigBurst(){
+  for(let i=0;i<200;i++) pts.push(new Confetti(true));
+}
+setTimeout(()=>{bigBurst();},500);
+setTimeout(()=>{bigBurst();},2000);
+
+/* ═══════════════════════════════════════
+   SPARKLE CURSOR TRAIL
+═══════════════════════════════════════ */
+const sc=document.getElementById('sparkle-canvas');
+const sx=sc.getContext('2d');
+sc.width=innerWidth;sc.height=innerHeight;
+addEventListener('resize',()=>{sc.width=innerWidth;sc.height=innerHeight;});
+
+const sparks=[];
+addEventListener('mousemove',e=>{
+  for(let i=0;i<3;i++){
+    sparks.push({
+      x:e.clientX,y:e.clientY,
+      vx:(Math.random()-.5)*3,vy:(Math.random()-.5)*3-.5,
+      life:1,sz:Math.random()*4+1,
+      col:PAL[Math.floor(Math.random()*PAL.length)]
+    });
+  }
+});
+addEventListener('touchmove',e=>{
+  const t=e.touches[0];
+  for(let i=0;i<4;i++){
+    sparks.push({
+      x:t.clientX,y:t.clientY,
+      vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*4-1,
+      life:1,sz:Math.random()*4+1,
+      col:PAL[Math.floor(Math.random()*PAL.length)]
+    });
+  }
+});
+
+function sparkLoop(){
+  sx.clearRect(0,0,sc.width,sc.height);
+  for(let i=sparks.length-1;i>=0;i--){
+    const s=sparks[i];
+    s.x+=s.vx;s.y+=s.vy;s.vy+=.08;s.life-=.045;
+    sx.save();sx.globalAlpha=Math.max(0,s.life);
+    sx.fillStyle=s.col;sx.shadowBlur=6;sx.shadowColor=s.col;
+    sx.beginPath();sx.arc(s.x,s.y,s.sz/2,0,Math.PI*2);sx.fill();
+    sx.restore();
+    if(s.life<=0)sparks.splice(i,1);
+  }
+  requestAnimationFrame(sparkLoop);
+}
+sparkLoop();
+</script>
+</body>
+</html>
